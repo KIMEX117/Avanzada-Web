@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="500" height="500" style="border: 1px solid black;">
+        Hola tu navegador no funciona
+    </canvas>
+
+    <img src="like.jpg" id="imagen" style="display: none;">
+
+    <script>
+        var cv = document.getElementById('mycanvas');
+        var ctx = cv.getContext('2d');
+
+        //ACTIVIDAD #6
+        //ESCRIBIR EN CANVAS
+        /*
+        ctx.font = "30px Arial"; 
+        ctx.fillStyle = "rgb(200, 0, 0.5)";
+        ctx.fillText("Enrique Leon", 10, 50);
+        ctx.strokeStyle = "rgb(200, 0, 0.5)";
+        ctx.strokeText("Enrique Leon", 10, 80);
+        */
+
+        //ACTIVIDAD #7
+        //GRADIANTE - createLinearGradient
+        /*
+        var grd = ctx.createLinearGradient(0, 0, 330, 0);
+        grd.addColorStop(0, "yellow");
+        grd.addColorStop(1, "purple");
+        ctx.fillStyle = grd;
+        ctx.fillRect(150,80,160,80);
+        ctx.fillStyle = "rgb(229, 28, 232)";
+        ctx.fillRect(60, 10, 60,30);
+        ctx.moveTo(230,180);
+        ctx.lineTo(280,230);
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        */
+
+        //ACTIVIDAD #8
+        //GRADIANTE - createRadialGradient
+        /*
+        var grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        grd.addColorStop(0, "red");
+        grd.addColorStop(1, "white");
+        ctx.fillStyle = grd;
+        ctx.fillRect(10, 10, 150, 100);
+        ctx.fillStyle = "rgb(200, 0, 0)";
+        ctx.fillRect(50,110,60,20);
+        ctx.fillStyle = "rgb(229, 28, 232, 0.7)";
+        ctx.fillRect(100,120,40,10);
+        */
+
+        //ACTIVIDAD #9
+        //drawImage
+        /*
+        var img = document.getElementById('imagen');
+        ctx.drawImage(img, 50, 50);
+        */
+
+        //ACTIVIDAD #12
+        //Evento: click
+        cv.addEventListener('click', function(e){
+            var x = e.offsetX;
+            var y = e.offsetY;
+
+            ctx.fillStyle = "rgb(0, 0, 200, 0.7)";
+            ctx.beginPath();
+            ctx.arc(x, y, 40, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+            console.log(e);
+        });
+
+        //ACTIVIDAD #13
+        //Evento: mouseover
+        cv.addEventListener('mouseover', function(e){
+            var x = e.offsetX;
+            var y = e.offsetY;
+
+            ctx.fillStyle = generateRandomColor();
+            ctx.fill();
+        });
+
+        //GENERAR COLOR RANDOM
+        function generateRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+
+
+    </script>
+</body>
+
+
+
+
+</html>
