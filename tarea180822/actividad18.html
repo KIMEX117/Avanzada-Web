@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTIVIDAD 18</title>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="500" height="500" style="border: 1px solid black;">
+        Hola tu navegador no funciona
+    </canvas>
+    <img src="rustyLogo.jpg" id="imagen" style="display: none;">
+    
+    <script>
+        var cv = document.getElementById('mycanvas');
+        var ctx = cv.getContext('2d');
+        var press = false;
+
+        //CABEZA
+        ctx.fillStyle = "rgba(255, 231, 214)";
+        ctx.fillRect(160,125,30,30); //cuello
+        ctx.beginPath();
+        ctx.arc(175,85,50,0,2*Math.PI); //cabeza
+        ctx.fill();
+
+        //CARA
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(155,85,5,0,2*Math.PI); //ojo izquierdo
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(195,85,5,0,2*Math.PI); //ojo derecho
+        ctx.closePath();
+        ctx.fill();
+
+        //PLAYERA
+        ctx.fillStyle = "black";
+        ctx.fillRect(100,150,150,150);
+        var img = document.getElementById('imagen');
+        ctx.drawImage(img, 125, 175, 100, 100);
+
+        //BRAZOS
+        /* I Z Q U I E R D O */
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(100,150);
+        ctx.lineTo(50,250);
+        ctx.lineTo(75,275);
+        ctx.lineTo(100,220);
+        ctx.lineTo(100,150);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "rgba(255, 231, 214)";
+        ctx.beginPath();
+        ctx.arc(50,275,25,0,2*Math.PI);
+        ctx.fill();
+
+        /* D E R E C H O */
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(250,150);
+        ctx.lineTo(300,250);
+        ctx.lineTo(275,275);
+        ctx.lineTo(250,220);
+        ctx.lineTo(250,150);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "rgba(255, 231, 214)";
+        ctx.beginPath();
+        ctx.arc(300,275,25,0,2*Math.PI);
+        ctx.fill();
+
+        //PANTALONES
+        ctx.fillStyle= "rgba(17, 37, 63, 1)";
+        ctx.beginPath();
+        ctx.moveTo(100,450); //Inicio en pie izquierdo
+        ctx.lineTo(100,300); //Cadera izquierda
+        ctx.lineTo(250,300); //Cadera derecha
+        ctx.lineTo(250,450); //Pie derecho
+        ctx.lineTo(200,450); //Linea pie derecho
+        ctx.lineTo(175,350); //Medio derecha
+        ctx.lineTo(150,450); //Medio izquierda
+        ctx.lineTo(100,450); //Linea pie izquierdo*/
+        ctx.closePath();
+        ctx.fill();
+
+        //ZAPATOS
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(100,465,15,0,2*Math.PI);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillRect(100,450,50,30);
+        ctx.fillRect(200,450,50,30);
+        ctx.beginPath();
+        ctx.arc(250,465,15,0,2*Math.PI);
+        ctx.closePath();
+        ctx.fill();
+
+        //CABELLO Y LENTES CON EVENTOS: "mousedown", "mouseup" y "move"
+        //Evento: mousemove
+        cv.addEventListener('mousemove', function(e){
+            if(press){
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.arc(e.offsetX,e.offsetY,3,0,2*Math.PI);
+                ctx.fill();
+            }
+        })
+
+        //Evento: mousedown
+        cv.addEventListener('mousedown', function(e){
+            press = true;
+        })
+
+        //Evento: mouseup
+        cv.addEventListener('mouseup', function(e){
+            press = false;
+        })
+    </script>
+</body>
+</html>
