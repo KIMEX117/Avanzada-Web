@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTIVIDAD 21</title>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="500" height="500" style="border: 1px solid black;">
+        Hola tu navegador no funciona
+    </canvas>
+    
+    <script>
+        var cv = null;
+        var ctx = null;
+        var press = false;
+
+        var super_x = 250;
+        var super_y = 250;
+
+        function run(){
+            cv = document.getElementById('mycanvas');
+            ctx = cv.getContext('2d');
+
+            paint();
+        }
+
+        function paint() {
+            window.requestAnimationFrame(paint);
+
+            ctx.fillStyle = "pink";
+            ctx.fillRect(0,0,500,500);
+            ctx.fillStyle = "red";
+            ctx.fillRect(super_x,super_y,30,30);
+            ctx.strokeRect(super_x,super_y,30,30);
+
+            super_x+=5;
+            if(super_x>500){
+                super_x = 0;
+            }
+        }
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        window.addEventListener('load',run,false);
+
+    </script>
+</body>
+</html>
