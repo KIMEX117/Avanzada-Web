@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTIVIDAD 23</title>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="500" height="500" style="border: 1px solid black;">
+        Hola tu navegador no funciona
+    </canvas>
+    
+    <script>
+        var cv = null;
+        var ctx = null;
+        var press = false;
+        //var color = "red";
+        var super_x = 250, super_y = 250;
+
+        var player1 = null;
+        var player2 = null;
+        //var pared = null;
+        var pared = [];
+
+        var direccion = 'right';
+        var score = 0;
+        var speed = 5;
+        
+        var pause = false;
+
+        function run(){
+            cv = document.getElementById('mycanvas');
+            ctx = cv.getContext('2d');
+
+            
+            player1 = new Cuadro(250,250,40,40,"red");
+            player2 = new Cuadro(getRandomInt(500),getRandomInt(500),40,40,"green");
+
+            pared.push(new Cuadro(40,120,30,280,"gray")); //Izquierda
+            pared.push(new Cuadro(400,120,30,280,"gray")); //Derecha
+            pared.push(new Cuadro(90,30,280,30,"gray")); //Arriba
+            pared.push(new Cuadro(90,460,280,30,"gray")); //Abajo
+
+            paint();
+            
+        }
+
+        function paint() {
+            window.requestAnimationFrame(paint);
+
+            ctx.fillStyle = "pink";
+            ctx.fillRect(0,0,500,500);
+
+            ctx.fillStyle = "black";
+            ctx.fillText("SCORE:"+score,10,20);
+             
+            player1.pintar(ctx);
+            player2.pintar(ctx);
+            for (let i = 0; i < pared.length; i++) {
+                pared[i].pintar(ctx);
+            }
+            //pared.pintar(ctx);
+
+            if(pause){
+                ctx.fillStyle = "rgba(0,0,0,0.3)";
+                ctx.fillRect(0,0,500,500);
+                ctx.fillStyle = "white";
+                ctx.fillText("P A U S E",230,230);
+            }else{
+                update();
+            }
+
+        }
+
+        function update(){
+            //Arriba
+            if (direccion=='up') {
+                player1.y -= speed;
+
+                if(player1.y<0){
+                    player1.y = 500;
+                }
+            }
+            //Abajo
+            if (direccion=='down') {
+                player1.y += speed;
+
+                if(player1.y>500){
+                    player1.y = 0;
+                }
+            }
+            //Izquierda
+            if (direccion=='left') {
+                player1.x -= speed;
+
+                if(player1.x<0){
+                    player1.x = 500;
+                }
+            }
+            //Derecha
+            if (direccion=='right') {
+                player1.x += speed;
+
+                if(player1.x>500){
+                    player1.x = 0;
+                }
+            }
+
+            if(player1.se_tocan(player2)){
+                player2.x = getRandomInt(500);
+                player2.y = getRandomInt(500);
+
+                score+=10;
+                speed+=5;
+            }
+            
+
+            for (let i = 0; i < pared.length; i++) {
+                if(player1.se_tocan(pared[i])){
+                    //Arriba
+                    if (direccion=='up') {
+                        player1.y += speed;
+
+                    }
+                    //Abajo
+                    if (direccion=='down') {
+                        player1.y -= speed;
+
+                    }
+                    //Izquierda
+                    if (direccion=='left') {
+                        player1.x += speed;
+
+                    }
+                    //Derecha
+                    if (direccion=='right') {
+                        player1.x -= speed;
+
+                    }
+                    //speed = 0;
+                }
+                
+            }
+
+            /*if(player1.se_tocan(pared)){
+                //speed = 0;
+
+                
+
+                //Arriba
+                if (direccion=='up') {
+                    player1.y += speed;
+
+                }
+                //Abajo
+                if (direccion=='down') {
+                    player1.y -= speed;
+
+                }
+                //Izquierda
+                if (direccion=='left') {
+                    player1.x += speed;
+
+                }
+                //Derecha
+                if (direccion=='right') {
+                    player1.x -= speed;
+
+                }
+                //speed = 0;
+            }*/
+
+        }
+
+        function Cuadro(x,y,w,h,c){
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.c = c;
+
+            this.se_tocan = function (target) { 
+            if(this.x < target.x + target.w &&
+                this.x + this.w > target.x && 
+                this.y < target.y + target.h && 
+                this.y + this.h > target.y){
+                    return true;
+                    console.log("Hola");
+                }
+            };
+
+            this.pintar = function(ctx){
+                ctx.fillStyle = this.c;
+                ctx.fillRect(this.x,this.y,this.w,this.h);
+                ctx.strokeRect(this.x,this.y,this.w,this.h);
+            }
+        }
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        document,addEventListener('keydown', function(e){
+            //Arriba
+            if (e.keyCode == 87 || e.keyCode == 38) {
+                direccion = 'up';
+            }
+            //Abajo
+            if (e.keyCode == 83 || e.keyCode == 40) {
+                direccion = 'down';
+            }
+            //Izquierda
+            if (e.keyCode == 65 || e.keyCode == 37) {
+                direccion = 'left';
+            }
+            //Derecha
+            if (e.keyCode == 68 || e.keyCode == 39) {
+                direccion = 'right';
+            }
+        
+            //Espacio
+            if (e.keyCode == 32 ) {
+                if(pause==false){
+                    pause = true;
+                }else{
+                    pause = false;
+                }
+            }
+
+        });
+
+        
+        window.addEventListener('load',run,false);
+
+        function generateRandomColor() {
+            var trans = '0.5';
+            var color = 'rgba(';
+            for (var i = 0; i < 3; i++) {
+                color += Math.floor(Math.random() * 255) + ',';
+            }
+            color += trans + ')';
+            return color;
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+
+    </script>
+</body>
+</html>
