@@ -12,17 +12,37 @@
         <h1>{{ name }}</h1>
         <h2>{{ lastname }}</h2>
         <input type="text" v-model="name" name="">
-        
-        <hr>
-
         <button @click="saludar">Click me!</button>
-        
+
         <hr>
 
+        <h1>Actividad #4 - Sumar dos números</h1>
         <input type="text" v-model="numero1">
         <input type="text" v-model="numero2">
         <button @click="sumar">Sumar</button>
         <h2> {{ resul }} </h2>
+
+        <hr>
+
+        <h1>Mayor o menor de 18 años:</h1>
+        <input type="text" v-model="age">
+        <h2 v-if="age < 18">No pase</h2>
+        <h2 v-else>Pase</h2>
+
+        <hr>
+
+        <h1>Uso del v-for: Imprimir arreglo</h1>
+        <ol>
+            <li v-for="item in chamacos">
+                {{ item.name }} : <span> {{ item.role }} </span>
+            </li>
+        </ol>
+
+        <h1>Actividad #5 - Agregar chamacos al arreglo</h1>
+        <input type="text" v-model="chamaco_name"><br>
+        <input type="text" v-model="role">
+        <button @click="save">Save chamaco</button>
+
     </div>
 
     
@@ -35,9 +55,18 @@
                 return {
                     name: 'Enrique',
                     lastname: 'Leon',
-                    numero1: '',
-                    numero2: '',
-                    resul: ''
+                    numero1: 0,
+                    numero2: 0,
+                    resul: 0,
+                    age: 0,
+                    //chamacos: ['Iran', 'Duarte', 'Buenrostro']
+                    chamacos: [
+                        {name:'Iran', role:'front'},
+                        {name:'Duarte', role:'Back'},
+                        {name:'Buenrostro', role:'Movil'}
+                    ],
+                    chamaco_name: '',
+                    role: ''
                 }
             },
             methods: {
@@ -46,6 +75,11 @@
                 },
                 sumar(){
                     this.resul = parseInt(this.numero1)+parseInt(this.numero2);
+                },
+                save(){
+                    console.log(this.chamaco_name)
+                    console.log(this.role)
+                    this.chamacos.push({name: this.chamaco_name, role: this.role});
                 }
             }
         }).mount('#contenedor');
