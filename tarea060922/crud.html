@@ -7,9 +7,10 @@
     <title>Vue js</title>
     <script src="https://unpkg.com/vue@3"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         html, body { height: 100%; margin: 0; background-color: #080710; color: white;}
-        #div-crud { background-color: rgba(255,255,255,0.1); border-radius: 25px; box-shadow: 0px -1px 20px 0px rgba(0, 0, 0, 0.6);}
+        #div-crud { background-color: rgba(255,255,255,0.1); border-radius: 25px; box-shadow: 0px -1px 10px 0px rgba(150, 88, 222, 0.9); }
         #div-crud > h1 { padding-top: 20px; font-weight: bold; }
     </style>
 </head>
@@ -17,10 +18,12 @@
     <div id="contenedor" class="container" style="padding-top: 60px; padding-bottom: 60px;">
         <div id="div-crud" class="row">
             <h1 class="d-flex justify-content-center">User List</h1>
-            <div class="table-responsive mb-5">
-                <button class="btn btn-success mb-4" style="width: 150px; font-weight: bold;" disabled>Add new user</button>
-                <button class="btn btn-danger mb-4" style="width: 150px; font-weight: bold; float: right;" @click="logout">Logout</button>
-                <table class="table table-dark table-bordered  table-hover" >
+            <div>
+                <button class="btn btn-success mb-4" style="width: 150px; font-weight: bold;" @click="action('add', null, null)" :disabled="activo"><i class="fa-solid fa-plus"></i> Add new user</button>
+                <button class="btn btn-danger mb-4" style="width: 150px; font-weight: bold; float: right;" @click="logout"><i class="fa-solid fa-power-off"></i> Logout</button>
+            </div>
+            <div v-if="(mostrar=='show')" class="table-responsive mb-5">
+                <table  class="table table-dark table-bordered  table-hover" >
                     <thead> 
                         <tr>
                             <th>ID</th>
@@ -28,51 +31,57 @@
                             <th>USERNAME</th>
                             <th>EMAIL</th>
                             <th>CITY</th>
-                            <th>ZIPCODE</th>
                             <th>PHONE</th>
+                            <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="element in users">
+                        <tr v-for="(element, index) in users">
                             <th>{{ element.id }}</th>
                             <td>{{ element.name }}</td>
                             <td>{{ element.username }}</td>
                             <td>{{ element.email }}</td>
                             <td>{{ element.address.city }}</td>
-                            <td>{{ element.address.zipcode }}</td>
                             <td>{{ element.phone }}</td>
+                            <td class="d-flex justify-content-around">
+                                <button class="btn" style="background-color: rgb(150, 88, 222); color: white;" @click="action('edit', element, index)"><i class="fa-solid fa-pencil"></i> Edit</button>
+                                <button class="btn" style="background-color: rgb(150, 88, 222); color: white;" @click="remove(index)"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <form action="" class="justify-content-center">
-                <div class="mb-3">
+            <form v-else style="width: 300px; margin: 0 auto;">
+                <h2>Formulario</h2>
+                <div class="mb-4">
                     <label class="form-label" for="">NAME</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="name" name="">
+                    <input class="form-control" style="width: 100%;" type="text" v-model="name" placeholder="Ingresa el nombre" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="">USERNAME</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="username" name="">
+                    <input class="form-control" style="width: 100%;" type="text" v-model="username" placeholder="Ingresa el username" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="">EMAIL</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="email" name="">
+                    <input class="form-control" style="width: 100%;" type="text" v-model="email" placeholder="Ingresa el email" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="">CITY</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="city" name="">
-                </div>
-                <div class="mb-4">
-                    <label class="form-label" for="">ZIPCODE</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="zipcode" name="">
+                    <input class="form-control" style="width: 100%;" type="text" v-model="city" placeholder="Ingresa la ciudad" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="">PHONE</label>
-                    <input class="form-control" style="width: 300px;" type="text" v-model="phone" name="">
+                    <input class="form-control" style="width: 100%;" type="text" v-model="phone" placeholder="Ingresa el número telefónico" required>
+                </div>
+                <input type="hidden" v-model="id">
+                <div class="d-flex justify-content-around mb-4">
+                    <button class="btn" style="background-color: rgb(150, 88, 222); color: white;" @click="save()">Save</button>
+                    <button class="btn" style="background-color: rgb(150, 88, 222); color: white;" @click="cancel()">Cancel</button>
                 </div>
             </form>
         </div>
-    </div>  
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         const { createApp } = Vue; 
         const app = createApp({ 
@@ -80,12 +89,16 @@
                 return {
                     users: null,
                     usuario: JSON.parse(sessionStorage.getItem("usuario")),
+                    mostrar: 'show',
+                    id: 0,
                     name: '',
                     username: '',
                     email: '',
                     city: '',
-                    zipcode: '',
-                    phone: ''
+                    phone: '',
+                    event: '',
+                    index: 0,
+                    activo: false,
                 }
             },
             watch:{
@@ -99,6 +112,76 @@
                 logout() {
                     sessionStorage.removeItem("usuario");
                     this.usuario = null;
+                },
+                action(action, element, index) {
+                    if(action=='add'||action=='edit'){
+                        this.event = 'add';
+                        this.mostrar = action;
+                    }
+                    if(action=='edit') {
+                        this.event = 'edit';
+                        this.index = index;
+                        this.id = element.id;
+                        this.name = element.name;
+                        this.username = element.username;
+                        this.email = element.email;
+                        this.city = element.address.city;
+                        this.phone = element.phone;
+                        this.activo = true;
+                    }
+                },
+                save() {
+                    var finalizado = false;
+                    if(this.event=='add') {
+                        if(this.name===''||this.username===''||this.email===''||this.city===''||this.phone==='') {
+                            swal("No pueden quedar campos vacíos.", "", "info");
+                        }else{
+                            this.users.push({id: this.users[this.users.length-1].id+1, name: this.name, username: this.username, email: this.email, address:{city: this.city}, phone: this.phone});
+                            swal("Se ha añadido correctamente.", "Presiona el botón para continuar.", "success");
+                            finalizado = true;
+                        }
+                    }else if(this.event=='edit') {
+                        this.users[this.index].id = this.id;
+                        this.users[this.index].name = this.name;
+                        this.users[this.index].username = this.username;
+                        this.users[this.index].email = this.email;
+                        this.users[this.index].address.city = this.city;
+                        this.users[this.index].phone = this.phone;
+                        swal("Se ha editado correctamente.", "Presiona el botón para continuar.", "success");
+                        finalizado = true;
+                        this.activo = false;
+                    }
+                    if(finalizado){
+                        this.name = '';
+                        this.username = '';
+                        this.email = '';
+                        this.city = '';
+                        this.phone = '';
+                        this.mostrar = 'show';
+                        finalizado = false;
+                    }
+                },
+                cancel() {
+                    this.mostrar = 'show';
+                    this.activo = false;
+                },
+                remove(index) {
+                    swal({
+                        title: "¿Estas seguro de eliminarlo?",
+                        text: "Una vez eliminado no podrás recuperarlo.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            this.users.splice(index,1);
+                            swal("Se ha eliminado el registro.", {
+                            icon: "success",
+                            });
+                        } else {
+                            swal("Se ha cancelado la acción.");
+                        }
+                    });
                 }
             },
             mounted(){
