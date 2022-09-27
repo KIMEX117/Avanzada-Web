@@ -26,22 +26,25 @@
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus, fugiat. Obcaecati enim laborum, quod minus illum at dolore repudiandae asperiores distinctio quo dolorum veritatis animi excepturi expedita praesentium quaerat illo.
                     </p>
-                    <form action="products/index.php" class="form">
+                    <!--form action="products/index.php" class="form"-->
+                    <form method="post" action="app/AuthController.php" class="form">
                         <div>
                             <label for="">Correo electrónico</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" class="form-control" placeholder="username@fakemail.com" aria-label="Username" aria-describedby="basic-addon1">
+                                <input name="email" type="text" class="form-control" placeholder="username@fakemail.com" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <div>
                             <label for="">Contraseña</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" class="form-control" placeholder="* * * * *" aria-label="Username" aria-describedby="basic-addon1">
+                                <input name="password"  type="text" class="form-control" placeholder="* * * * *" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary col-12 mb-4">Acceder</button>
+
+                        <input type="hidden" value="access" name="action">
                     </form>
                 </div>
             </div>

@@ -45,6 +45,7 @@
                 
             </div>
         </div>
+        
     </div>
 
     <?php include "../layouts/scripts.template.php" ?>
