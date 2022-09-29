@@ -42,6 +42,7 @@ if (isset($_POST['action'])) {
             //echo $response;
 
             $response = json_decode($response);
+            
 
             if( isset($response->code) &&  $response->code > 0) {
                 session_start();
@@ -49,8 +50,10 @@ if (isset($_POST['action'])) {
                 $_SESSION['name'] = $response->data->name;
                 $_SESSION['lastname'] = $response->data->lastname;
                 $_SESSION['avatar'] = $response->data->avatar;
-                $_SESSION['name'] = $response->data->token;
+                $_SESSION['token'] = $response->data->token;
 
+                //var_dump($_SESSION['token']);
+                
                 header ("Location:../products");
             } else {
                 header ("Location:../?error=true");

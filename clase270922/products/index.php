@@ -1,3 +1,8 @@
+<?php
+    include '../app/ProductsController.php';
+    $producto = new ProductsController();
+    $productos = $producto -> getProducts();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,23 +36,23 @@
 
                 <!-- CARD -->
                 <div class="row">
-                <?php for ($i=0; $i < 12; $i++) {?> 
-                    <div class="col-md-3 p-2">
-                        <div class="card mb-1" style="width: 18rem;">
-                            <img src="../public/img/logo.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Card title</h5>
-                                <h6 class="card-subtitle text-center">Botanas</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <a class="btn btn-warning col-6" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</a>
-                                    <a href="#" class="btn btn-danger col-6" onclick="remove(this)">Eliminar</a>
-                                    <a href="detalles.php" class="btn btn-info col-12">Detalles</a>
+                    <?php foreach ($productos as $key => $item): ?> 
+                        <div class="col-sm-6 col-xl-4 col-xxl-3 p-2">
+                            <div class="card mb-1 ">
+                                <img src="<?php echo $item->cover ?>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center"><?php echo $item->name ?></h5>
+                                    <h6 class="card-subtitle text-center"><i><?php echo $item->categories[0]->name ?></i></h6>
+                                    <p class="card-text" style="text-align: justify;"><?php echo $item->description ?></p>
+                                    <div class="row">
+                                        <a class="btn btn-warning col-6" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</a>
+                                        <a href="#" class="btn btn-danger col-6" onclick="remove(this)">Eliminar</a>
+                                        <a href="detalles.php" class="btn btn-info col-12">Detalles</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php } ?> 
+                    <?php endforeach; ?>
                 </div>
                 
             </div>
