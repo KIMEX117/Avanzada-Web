@@ -11,15 +11,22 @@ if (isset($_POST['action'])) {
             $features = strip_tags($_POST['features']);
             $brand_id = strip_tags($_POST['brand_id']);
 
-            $productController = new ProductsController();
-            $productController -> createProduct($name, $slug, $description, $features, $brand_id);
-            echo "Entra a isset create";
+            if(isset($_FILES['cover']) && $_FILES["cover"]["error"] == 0) {
+                $cover = $_FILES["cover"]["tmp_name"];
+
+                $productController = new ProductsController();
+                $productController -> createProduct($name, $slug, $description, $features, $brand_id, $cover);
+            }else{
+                header ("Location:../products?errorImage=true");
+            }
         break;
         
     }
 }
 
 class ProductsController {
+
+    //GET PRODUCTS (OBTENER TODOS LOS PRODUCTOS DE LA API)
     public function getProducts(){
         $curl = curl_init();
 
@@ -52,8 +59,8 @@ class ProductsController {
         }
     }
 
-    public function createProduct($name, $slug, $description, $features, $brand_id) {
-        echo "Entra a create";
+    //CREATE PRODUCT (CREAR UN NUEVO PRODUCTO)
+    public function createProduct($name, $slug, $description, $features, $brand_id, $cover) {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -65,7 +72,7 @@ class ProductsController {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('name' => $name,'slug' => $slug,'description' => $description,'features' => $features,'brand_id' => '1','cover'=> ''),
+        CURLOPT_POSTFIELDS => array('name' => $name,'slug' => $slug,'description' => $description,'features' => $features,'brand_id' => $brand_id, 'cover'=> new CURLFILE($cover)),
         CURLOPT_HTTPHEADER => array(
             'Authorization: Bearer '.$_SESSION['token']
         ),
