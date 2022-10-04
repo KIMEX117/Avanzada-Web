@@ -10,19 +10,19 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
-                        <input type="text" name="name" class="form-control" placeholder="Product name">
+                        <input id="name" type="text" name="name" class="form-control" placeholder="Product name">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Slug</span>
-                        <input type="text" name="slug" class="form-control" placeholder="Product slug">
+                        <input id="slug" type="text" name="slug" class="form-control" placeholder="Product slug">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Description</span>
-                        <input type="text" name="description" class="form-control" placeholder="Product description">
+                        <input id="description" type="text" name="description" class="form-control" placeholder="Product description">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Features</span>
-                        <input type="text" name="features" class="form-control" placeholder="Product features">
+                        <input id="features" type="text" name="features" class="form-control" placeholder="Product features">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Brand_id</span>
@@ -38,7 +38,8 @@
                         <input type="file" name="cover" class="form-control" placeholder="* * * * *" accept="image/*">
                     </div>
                 </div>
-                <input type="hidden" name="action" value="create">
+                <input id="inputOculto" type="hidden" name="action" value="">
+                <input type="hidden" id="id" name="id">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -49,7 +50,7 @@
 </div>
 
 <!-- Modal: "EDITAR" -->
-<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,4 +71,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
