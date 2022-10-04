@@ -44,6 +44,7 @@
     function editProduct(target) {
         document.getElementById("ocultoInput").value = "update";
         let product = JSON.parse(target.getAttribute('data-product'));
+        console.log(product);
 
         document.getElementById("name").value = product.name;
         document.getElementById("slug").value = product.slug;
@@ -51,6 +52,7 @@
         document.getElementById("features").value = product.features;
         document.getElementById("brand_id").value = product.brand_id;
         document.getElementById("id").value = product.id;
+        
     }
 
 </script>

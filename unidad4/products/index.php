@@ -50,7 +50,7 @@
                                     <h6 class="card-subtitle text-center"><i><?php if(isset($item->brand->name)) echo $item->brand->name; else echo "No hay brand"; ?></i></h6>
                                     <p class="card-text" style="text-align: justify;"><?php echo $item->description ?></p>
                                     <div class="row">
-                                        <a onclick="editProduct($item)" class="btn btn-warning col-6" data-bs-toggle="modal" data-bs-target="#añadirModal">Editar</a>
+                                        <a data-product='<?php echo json_encode($item)?>' onclick="editProduct(this)" class="btn btn-warning col-6" data-bs-toggle="modal" data-bs-target="#añadirModal">Editar</a>
                                         <a class="btn btn-danger col-6" onclick="remove(<?php echo $item->id ?>)">Eliminar</a>
                                         <a href="detalles.php?slug=<?php echo $item->slug ?>" class="btn btn-info col-12">Detalles</a>
                                     </div>

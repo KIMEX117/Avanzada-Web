@@ -28,6 +28,9 @@ if (isset($_POST['action'])) {
             $features = strip_tags($_POST['features']);
             $brand_id = strip_tags($_POST['brand_id']);
             $id = strip_tags($_POST['id']);
+
+            $productController = new ProductsController();
+            $productController -> updateProduct($name, $slug, $description, $features, $brand_id, $id);
         break;
 
         case 'delete':
@@ -156,7 +159,7 @@ class ProductsController {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_POSTFIELDS => 'name='.$name.'&description='.$description.'&features='.$features.'&brand_id='.$brand_id.'&id='.$id,
+        CURLOPT_POSTFIELDS => 'name='.$name.'&slug='.$slug.'&description='.$description.'&features='.$features.'&brand_id='.$brand_id.'&id='.$id,
         CURLOPT_HTTPHEADER => array(
             'Authorization: Bearer '.$_SESSION['token'],
             'Content-Type: application/x-www-form-urlencoded'

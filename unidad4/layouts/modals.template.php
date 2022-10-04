@@ -38,7 +38,7 @@
                         <input type="file" name="cover" class="form-control" placeholder="* * * * *" accept="image/*">
                     </div>
                 </div>
-                <input id="inputOculto" type="hidden" name="action" value="">
+                <input id="ocultoInput" type="hidden" name="action" value="">
                 <input type="hidden" id="id" name="id">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
