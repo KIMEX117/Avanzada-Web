@@ -5,7 +5,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="products/index.php">Products</a>
+                            <a class="nav-link" href="index.php">Products</a>
                         </li>
                         <!--li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

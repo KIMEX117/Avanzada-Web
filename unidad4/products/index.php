@@ -52,7 +52,7 @@
                                     <div class="row">
                                         <a class="btn btn-warning col-6" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</a>
                                         <a href="#" class="btn btn-danger col-6" onclick="remove(this)">Eliminar</a>
-                                        <a href="detalles.php" class="btn btn-info col-12">Detalles</a>
+                                        <a href="detalles.php?slug=<?php echo $item->slug ?>" class="btn btn-info col-12">Detalles</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,25 +68,5 @@
 
     <?php include "../layouts/scripts.template.php" ?>
     
-    <script>
-        function remove (target) {
-            swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-            })
-            .then((willDelete) => {
-            if (willDelete) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-                });
-            } else {
-                swal("Your imaginary file is safe!");
-            }
-            });
-        }
-    </script>
 </body>
 </html>

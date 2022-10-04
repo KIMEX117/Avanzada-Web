@@ -93,6 +93,40 @@ class ProductsController {
         }
     }
 
+    //GET PRODUCT BY SLUG (TEXTO PROVENIENTE DE LA URL QUE USA GUIONES)
+    public function getProductBySlug($slug) {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/slug/'.$slug,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$_SESSION['token'],
+            //'Cookie: XSRF-TOKEN=eyJpdiI6Ik82K1pFcHpmTDdMaXF2cmVVcktEc3c9PSIsInZhbHVlIjoiek9LemJjcmhOY3dzYkgrRkZnYURRN1pYYkxRb3laajdnYk1rVk1kQ2VYTnVBOEhMdTRKY1NpMlA0RVBJNW16MEorOGkwNEZmMUV6eGZMTFlKMm9STWV0UWY4ZVUzMGw2N0lPcTg5UC9CUzUwYUgwTEI4Vm5zdHhqKzJtTy9rd1MiLCJtYWMiOiI0YWI2YmIzMTc0NmZlNWU2MzdmM2UwMGIyMjU1ZWEwMDQ5ODIyODQ4MDUwOTcwNjVmYmZlMDgwYWY0ZWM5MTljIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6ImdaR3hXQmpwNFJpa2VRdGZteEtSaVE9PSIsInZhbHVlIjoiT292NmhQZjR4RHlwNkpMYXpRYys3VWxSRlJQSmxCQXdmUm1GRkhTU250K1c1UHdHbkhUaXhuLyt2VDYrcHNYTmRNZlJSVXBwWkhManFFQ243VWJNU1ZXZ05uek0zNWx6SFBRM3AvaGJrMGE4V09DRFdrUVRwelNmNzNPenRHYmYiLCJtYWMiOiJjMWEwNzEzMDMyNTQ2OTM1ODcxZGIxMjcyYjM5MGM1MmE2NDhiMjc1NzdkMjhmYWQzZjRjNjNhMGM0NGQxYjg0IiwidGFnIjoiIn0%3D'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        //echo $response;
+
+        $response = json_decode($response);
+
+        if( isset($response->code) &&  $response->code > 0) {
+            return $response -> data;
+        } else {
+            header ("Location:../products?error=true");
+        }
+
+    }
+
 }
 
 
