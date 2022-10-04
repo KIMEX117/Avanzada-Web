@@ -1,7 +1,12 @@
 <?php
     include '../app/ProductsController.php';
+    include '../app/BrandsController.php';
+
     $producto = new ProductsController();
+    $brand = new BrandsController();
+
     $productos = $producto -> getProducts();
+    $brands = $brand -> getBrands();
 ?>
 <!DOCTYPE html>
 <html lang="en">

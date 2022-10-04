@@ -10,27 +10,32 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
-                        <input type="text" name="name" class="form-control" placeholder="Product name" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="name" class="form-control" placeholder="Product name">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Slug</span>
-                        <input type="text" name="slug" class="form-control" placeholder="Product slug" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="slug" class="form-control" placeholder="Product slug">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Description</span>
-                        <input type="text" name="description" class="form-control" placeholder="Product description" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="description" class="form-control" placeholder="Product description">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Features</span>
-                        <input type="text" name="features" class="form-control" placeholder="Product features" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="features" class="form-control" placeholder="Product features">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Brand_id</span>
-                        <input type="text" name="brand_id" class="form-control" placeholder="Product brand_id" aria-label="Username" aria-describedby="basic-addon1">
+                        <select name="brand_id" id="brand_id" class="form-select">
+                            <option value="" selected disabled>Seleccione una opción de la lista</option>
+                            <?php foreach($brands as $item): ?>      
+                                <option value="<?php echo $item->id; ?>"><?php echo $item->name; ?></option> 
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Cover</span>
-                        <input type="file" name="cover" class="form-control" placeholder="* * * * *" aria-label="Username" aria-describedby="basic-addon1" accept="image/*">
+                        <input type="file" name="cover" class="form-control" placeholder="* * * * *" accept="image/*">
                     </div>
                 </div>
                 <input type="hidden" name="action" value="create">
