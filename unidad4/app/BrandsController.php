@@ -1,5 +1,7 @@
 <?php
 
+include_once "config.php";
+
 class BrandsController {
 
     //GET BRANDS (OBTENER TODAS LAS MARCAS)

@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+//session_start();
+include_once "config.php";
 
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {

@@ -1,20 +1,25 @@
 <?php
 
+include_once "config.php";
+
+
 /*$authC = new AuthController();
 
 $authC -> login('','');*/
 
 if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'access':
-            $authController = new AuthController();
 
-            $email = strip_tags($_POST['email']);
-            $password = strip_tags($_POST['password']);
-
-            $authController -> login($email,$password);
-        break;
-        
+    if (isset($_POST['global_token']) && ($_POST['global_token'] == $_SESSION['global_token'])) {
+        switch ($_POST['action']) {
+            case 'access':
+                $authController = new AuthController();
+    
+                $email = strip_tags($_POST['email']);
+                $password = strip_tags($_POST['password']);
+    
+                $authController -> login($email,$password);
+            break;
+        }
     }
 }
 
