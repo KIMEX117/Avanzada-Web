@@ -50,7 +50,7 @@ if (isset($_POST['action'])) {
             
 
             if( isset($response->code) &&  $response->code > 0) {
-                session_start();
+                //session_start();
 
                 $_SESSION['id'] = $response->data->id;
                 $_SESSION['name'] = $response->data->name;
@@ -60,9 +60,9 @@ if (isset($_POST['action'])) {
 
                 //var_dump($_SESSION['token']);
                 
-                header ("Location:../products");
+                header ("Location:".BASE_PATH."/products");
             } else {
-                header ("Location:../?error=true");
+                header ("Location:".BASE_PATH."/?error=true");
             }
 
         }
