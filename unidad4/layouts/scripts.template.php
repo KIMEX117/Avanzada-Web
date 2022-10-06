@@ -20,6 +20,7 @@
             var bodyFormData = new FormData();
             bodyFormData.append('id', id);
             bodyFormData.append('action', 'delete');
+            bodyFormData.append('global_token', '<?= $_SESSION['global_token'] ?>');
 
             axios.post('../app/ProductsController.php', bodyFormData)
             .then(function (response) {

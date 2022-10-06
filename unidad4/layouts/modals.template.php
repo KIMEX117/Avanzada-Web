@@ -40,6 +40,7 @@
                 </div>
                 <input id="ocultoInput" type="hidden" name="action" value="">
                 <input type="hidden" id="id" name="id">
+                <input type="hidden" name="global_token" value="<?= $_SESSION['global_token'] ?>" >
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>

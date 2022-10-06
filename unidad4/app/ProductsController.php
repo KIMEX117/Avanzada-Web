@@ -4,44 +4,47 @@
 include_once "config.php";
 
 if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'create':
-            $name = strip_tags($_POST['name']);
-            $slug = strip_tags($_POST['slug']);
-            $description = strip_tags($_POST['description']);
-            $features = strip_tags($_POST['features']);
-            $brand_id = strip_tags($_POST['brand_id']);
+    if (isset($_POST['global_token']) && ($_POST['global_token'] == $_SESSION['global_token'])) {
+        switch ($_POST['action']) {
+            case 'create':
+                $name = strip_tags($_POST['name']);
+                $slug = strip_tags($_POST['slug']);
+                $description = strip_tags($_POST['description']);
+                $features = strip_tags($_POST['features']);
+                $brand_id = strip_tags($_POST['brand_id']);
 
-            if(isset($_FILES['cover']) && $_FILES["cover"]["error"] == 0) {
-                $cover = $_FILES["cover"]["tmp_name"];
+                if(isset($_FILES['cover']) && $_FILES["cover"]["error"] == 0) {
+                    $cover = $_FILES["cover"]["tmp_name"];
+
+                    $productController = new ProductsController();
+                    $productController -> createProduct($name, $slug, $description, $features, $brand_id, $cover);
+                }else{
+                    header ("Location:../products?errorImage=true");
+                }
+            break;
+
+            case 'update':
+                $name = strip_tags($_POST['name']);
+                $slug = strip_tags($_POST['slug']);
+                $description = strip_tags($_POST['description']);
+                $features = strip_tags($_POST['features']);
+                $brand_id = strip_tags($_POST['brand_id']);
+                $id = strip_tags($_POST['id']);
 
                 $productController = new ProductsController();
-                $productController -> createProduct($name, $slug, $description, $features, $brand_id, $cover);
-            }else{
-                header ("Location:../products?errorImage=true");
-            }
-        break;
+                $productController -> updateProduct($name, $slug, $description, $features, $brand_id, $id);
+            break;
 
-        case 'update':
-            $name = strip_tags($_POST['name']);
-            $slug = strip_tags($_POST['slug']);
-            $description = strip_tags($_POST['description']);
-            $features = strip_tags($_POST['features']);
-            $brand_id = strip_tags($_POST['brand_id']);
-            $id = strip_tags($_POST['id']);
+            case 'delete':
+                $id = strip_tags($_POST['id']);
 
-            $productController = new ProductsController();
-            $productController -> updateProduct($name, $slug, $description, $features, $brand_id, $id);
-        break;
-
-        case 'delete':
-            $id = strip_tags($_POST['id']);
-
-            $productController = new ProductsController();
-            $productController -> deleteProduct($id);
-        break;
-        
+                $productController = new ProductsController();
+                $productController -> deleteProduct($id);
+            break;
+            
+        }
     }
+    
 }
 
 class ProductsController {
