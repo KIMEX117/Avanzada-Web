@@ -22,7 +22,7 @@
             bodyFormData.append('action', 'delete');
             bodyFormData.append('global_token', '<?= $_SESSION['global_token'] ?>');
 
-            axios.post('../app/ProductsController.php', bodyFormData)
+            axios.post('<?= BASE_PATH ?>stock', bodyFormData)
             .then(function (response) {
                 console.log(response);
 

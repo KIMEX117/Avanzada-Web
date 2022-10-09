@@ -19,7 +19,7 @@ if (isset($_POST['action'])) {
                     $productController = new ProductsController();
                     $productController -> createProduct($name, $slug, $description, $features, $brand_id, $cover);
                 }else{
-                    header ("Location:../products?errorImage=true");
+                    header ("Location:".BASE_PATH."/products?errorImage=true");
                 }
             break;
 
@@ -110,9 +110,9 @@ class ProductsController {
         $response = json_decode($response);
 
         if( isset($response->code) &&  $response->code > 0) {
-            header ("Location:../products?success=true");
+            header ("Location:".BASE_PATH."/products?success=true");
         } else {
-            header ("Location:../products?error=true");
+            header ("Location:".BASE_PATH."/products?error=true");
         }
     }
 
@@ -145,7 +145,7 @@ class ProductsController {
         if( isset($response->code) &&  $response->code > 0) {
             return $response -> data;
         } else {
-            header ("Location:../products?error=true");
+            header ("Location:".BASE_PATH."/products?error=true");
         }
 
     }
@@ -178,9 +178,9 @@ class ProductsController {
         $response = json_decode($response);
 
         if( isset($response->code) &&  $response->code > 0) {
-            header ("Location:../products?success=true");
+            header ("Location:".BASE_PATH."/products?success=true");
         } else {
-            header ("Location:../products?error=true");
+            header ("Location:".BASE_PATH."/products?error=true");
         }
 
     }
