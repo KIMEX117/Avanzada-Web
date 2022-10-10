@@ -60,9 +60,9 @@ if (isset($_POST['action'])) {
 
                 //var_dump($_SESSION['token']);
                 
-                header ("Location:".BASE_PATH."/products");
+                header ("Location:".BASE_PATH."stock");
             } else {
-                header ("Location:".BASE_PATH."/?error=true");
+                header ("Location:".BASE_PATH."?error=true");
             }
 
         }

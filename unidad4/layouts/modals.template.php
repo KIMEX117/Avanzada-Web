@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="añadirModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form enctype="multipart/form-data" method="post" action="<?= BASE_PATH ?>stock">
+            <form enctype="multipart/form-data" method="post" action="<?= BASE_PATH ?>stock/check">
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
