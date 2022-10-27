@@ -14,6 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
+            //TRABAJO EN CLASE - 27/OCT/2022
+            $table->id();
+            $table->date('date');
+            $table->float('price');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->timestamps();
+
+            /* CÓDIGO DE TAREA - 25/OCT/2022
             $table->id();
             $table->integer('client_id');
             $table->string('name');
@@ -22,6 +31,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->float('total');
             $table->timestamps();
+            */
         });
     }
 
