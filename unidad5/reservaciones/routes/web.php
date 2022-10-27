@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,7 @@ Route::post('users/', [UserController::class, 'store']);
 //TRABAJO EN CLASE 25/Octubre - Mes #10/2022
 Route::get('clients/', [ClientController::class, 'index']);
 Route::get('clients/{id}', [ClientController::class, 'show']);
+
+//TAREA 25/Octubre - Mes #10/2022 para la clase del 27/10/2022
+Route::get('reservations/', [ReservationController::class, 'index']);
+Route::get('reservations/{id}', [ReservationController::class, 'show']);
