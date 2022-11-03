@@ -51,7 +51,9 @@ Route::post('users/', [UserController::class, 'store']);
 
 //TRABAJO EN CLASE 25/Octubre - Mes #10/2022
 Route::get('clients/', [ClientController::class, 'index']);
+Route::get('clients/create', [ClientController::class, 'create']); //TRABAJO EN CLASE 03/Noviembre/2022
 Route::get('clients/{id}', [ClientController::class, 'show']);
+Route::post('clients/', [ClientController::class, 'store']); //TRABAJO EN CLASE 03/Noviembre/2022
 
 //TAREA 25/Octubre - Mes #10/2022 para la clase del 27/10/2022
 Route::get('reservations/', [ReservationController::class, 'index']);
