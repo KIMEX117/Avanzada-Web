@@ -15,7 +15,12 @@ class ClientController extends Controller
     public function index()
     {
         //return Client::all();
-        return Client::with('reservations')->get();
+        //return Client::with('reservations')->get();
+
+        //TRABAJO EN CLASE 03/Noviembre/22
+        $clients = Client::with('reservations')->get();
+
+        return view('clients.show_clients', compact('clients'));
     }
 
     /**
