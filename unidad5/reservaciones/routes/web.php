@@ -43,11 +43,20 @@ Route::get('saludo/{num1}/{num2}/{num3?}', function ($num1, $num2, $num3=0) {
 
 });*/
 
+//TRABAJO EN CLASE 08/Noviembre/2022
+Route::get('login/', function(){
+    return view('login');
+})->name('login');
+
 //TRABAJO EN CLASE 18/Octubre - Mes #10/2022
 Route::get('users/', [UserController::class, 'index']);
 Route::get('users/create', [UserController::class, 'create']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::post('users/', [UserController::class, 'store']);
+
+Route::get('prueba', function(){
+    return "Hola";
+})->middleware('auth');
 
 //TRABAJO EN CLASE 25/Octubre - Mes #10/2022
 Route::get('clients/', [ClientController::class, 'index']);
